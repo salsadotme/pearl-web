@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Layout = ({ children }: { children: any }) => {
   return (
-    <div data-theme="cyberpunk">
+    <div data-theme="synthwave">
       <div className="navbar bg-white">
         <div className="flex-1">
           <Image
@@ -14,7 +14,7 @@ const Layout = ({ children }: { children: any }) => {
             width="50"
             alt="Pearl"
           />
-          <a className="btn btn-ghost normal-case text-xl">Pearl</a>
+          <a className="btn btn-ghost normal-case text-xl text-black">Pearl</a>
         </div>
         <div className="flex-none">
           <ConnectButton />

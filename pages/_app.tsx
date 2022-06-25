@@ -12,9 +12,9 @@ import { publicProvider } from "wagmi/providers/public";
 import type { AppProps } from "next/app";
 
 const { chains, provider } = configureChains(
-  [chain.mainnet],
+  [chain.polygonMumbai],
   [
-    jsonRpcProvider({ rpc: () => ({ http: "https://rpc.ankr.com/eth" }) }),
+    // jsonRpcProvider({ rpc: () => ({ http: "https://rpc.ankr.com/eth" }) }),
     publicProvider(),
   ]
 );
@@ -35,10 +35,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider
         chains={chains}
-        // theme={{
-        //   lightMode: lightTheme(),
-        //   darkMode: darkTheme(),
-        // }}
+        theme={{
+          lightMode: lightTheme(),
+          darkMode: darkTheme(),
+        }}
         coolMode
       >
         <Component {...pageProps} />
