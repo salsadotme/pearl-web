@@ -11,7 +11,8 @@ const Form = () => {
   const [text, setText] = useState<string>();
   const [titleText, setTitleText] = useState<string>();
   const [data, setData] = useState<SMTPData>();
-
+  
+  
   const sendMail = async () => {
     try {
       let blob = { title: titleText, message: text };
@@ -31,6 +32,15 @@ const Form = () => {
       console.log("FUCK -> " + JSON.stringify(e));
     }
   };
+
+  const hashMessage = () => {
+
+  }
+
+  const sign = () => {
+
+  }
+
   return (
     <div>
       <div className="form-control w-full my-5">
