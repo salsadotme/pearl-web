@@ -8,7 +8,10 @@ type Data = {
 };
 
 // async..await is not allowed in global scope, must use a wrapper
-const send = async () => {
+const send = async (
+  title = "Hi from Pearl!",
+  message = "Something you will like forsure!"
+) => {
   try {
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing
@@ -29,8 +32,8 @@ const send = async () => {
     let info = await transporter.sendMail({
       from: '"Fred Foo 👻" <foo@example.com>', // sender address
       to: "carl.lippert@gmail.com", // list of receivers
-      subject: "Hello from Pearl", // Subject line
-      text: "This works!?", // plain text body
+      subject: title, // Subject line
+      text: message, // plain text body
       html: "<b>This works!?</b>", // html body
     });
 
@@ -41,14 +44,23 @@ const send = async () => {
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 
-    return { success: true, url: nodemailer.getTestMessageUrl(info) };
+    return {
+      success: true,
+      url: nodemailer.getTestMessageUrl(info),
+      title,
+      message,
+    };
   } catch (error) {
     console.log(JSON.stringify(error));
   }
 };
 
 const sendSMTP = async (req: NextApiRequest, res: NextApiResponse<any>) => {
-  let sendRes = await send();
+  console.log("Request body: " + JSON.stringify(req.body));
+
+  let { title, message } = req.body;
+
+  let sendRes = await send(title, message);
   res.status(200).json(sendRes);
 };
 

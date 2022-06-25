@@ -4,6 +4,14 @@ const Form = () => {
   const [text, setText] = useState<string>();
   const [titleText, setTitleText] = useState<string>();
 
+  const sendMail = async () => {
+      try {
+        
+        
+    } catch (e) {
+      console.log("FUCK -> " + JSON.stringify(e));
+    }
+  };
   return (
     <div>
       <div className="form-control w-full my-5">
