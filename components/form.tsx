@@ -28,7 +28,7 @@ const Form = () => {
         onChange={(e) => setText(e.target.value)}
       ></textarea>
       <div className="h-10" />
-      <button class="btn btn-primary">Button</button>
+      <button className="btn btn-primary">Button</button>
     </div>
   );
 };
