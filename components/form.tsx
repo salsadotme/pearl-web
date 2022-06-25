@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useSigner, useAccount, useContractWrite } from "wagmi";
+import { useSigner, useContractWrite, useSignMessage } from "wagmi";
 import { contract_address } from "../consts";
 import PEARL_CONTRACT from "../pearl_abi.json";
-import { generateNonce } from "siwe";
 
 type SMTPData = {
   success: boolean;
@@ -15,11 +14,12 @@ const Form = () => {
   const [text, setText] = useState<string>("youoouoouuuuuuuu ");
   const [titleText, setTitleText] = useState<string>("lets git this shit");
   const [data, setData] = useState<SMTPData>();
+  const [messageHash, setMessageHash] = useState<string>();
+  const [signedMessage, setSignedMessage] = useState<string>();
 
   const { data: signer } = useSigner();
-  const { data: account } = useAccount();
 
-  const { write: getMessageHash } = useContractWrite(
+  const { writeAsync: getMessageHash } = useContractWrite(
     {
       addressOrName: contract_address,
       contractInterface: PEARL_CONTRACT,
@@ -36,10 +36,16 @@ const Form = () => {
     }
   );
 
-  const sendMail = async () => {
-    try {
-      let blob = { title: titleText, message: text };
+  const { data: signedData, signMessageAsync } = useSignMessage();
 
+  const sendMail = async (thisMessageHash: string, messageSig: string) => {
+    try {
+      let blob = {
+        title: titleText,
+        message: text + " " + thisMessageHash + " " + messageSig,
+      };
+
+      
       let data: SMTPData = await fetch("http://localhost:3000/api/sendSMTP", {
         method: "POST",
         headers: {
@@ -51,6 +57,9 @@ const Form = () => {
       console.log(data);
 
       setData(data);
+
+      console.log("Mail sent!"); 
+
     } catch (e) {
       console.log("FUCK -> " + JSON.stringify(e));
     }
@@ -61,8 +70,6 @@ const Form = () => {
   const hashMessage = async () => {
     try {
       let message = text;
-      let nonce = generateNonce();
-      console.log("Nonce -> " + nonce);
 
       let messageHashed = await getMessageHash({
         args: [
@@ -73,20 +80,41 @@ const Form = () => {
         ],
       });
 
-      console.log("Done in HashMessage!");
-      console.log(JSON.stringify(messageHashed));
+      console.log("Done in HashMessage! -> " + JSON.stringify(messageHashed));
+      setMessageHash(String(messageHashed));
+      return String(messageHashed);
     } catch (e) {
       console.log("FUCK. + " + JSON.stringify(e));
     } finally {
     }
   };
 
-  const sign = () => {};
+  const sign = async (thisMessageHash: string) => {
+    if (thisMessageHash) {
+      let signedMessage = await signMessageAsync({ message: thisMessageHash });
+
+      setSignedMessage(signedMessage);
+      console.log("Signed too!!!");
+      return signedMessage;
+    } else {
+      console.log("No Message hash....");
+    }
+  };
 
   const doAllTheThings = async () => {
     try {
-      await hashMessage();
-      await sendMail();
+      let derp = await hashMessage();
+      console.log("derp?" + derp);
+      if (derp) {
+        let resFromSign = await sign(derp);
+        if (resFromSign) {
+          await sendMail(derp, resFromSign);
+        } else {
+          console.log("no res from sign...");
+        }
+      } else {
+        console.log("No res from hashMessage....");
+      }
     } catch (E) {
       console.log("Try all failed");
     }

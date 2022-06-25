@@ -34,7 +34,7 @@ const send = async (
       to: "carl.lippert@gmail.com", // list of receivers
       subject: title, // Subject line
       text: message, // plain text body
-      html: "<b>This works!?</b>", // html body
+      html: "<b>" + message + "</b>", // html body
     });
 
     console.log("Message sent: %s", info.messageId);
