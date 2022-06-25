@@ -1,13 +1,32 @@
 import { useState } from "react";
 
+type SMTPData = {
+  success: boolean;
+  url: string;
+  title: string;
+  message: string;
+};
+
 const Form = () => {
   const [text, setText] = useState<string>();
   const [titleText, setTitleText] = useState<string>();
+  const [data, setData] = useState<SMTPData>();
 
   const sendMail = async () => {
-      try {
-        
-        
+    try {
+      let blob = { title: titleText, message: text };
+
+      let data: SMTPData = await fetch("http://localhost:3000/api/sendSMTP", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(blob),
+      }).then((res) => res.json());
+
+      console.log(data);
+
+      setData(data);
     } catch (e) {
       console.log("FUCK -> " + JSON.stringify(e));
     }
@@ -36,7 +55,10 @@ const Form = () => {
         onChange={(e) => setText(e.target.value)}
       ></textarea>
       <div className="h-10" />
-      <button className="btn btn-primary">Button</button>
+      <button onClick={sendMail} className="btn btn-primary">
+        Button
+      </button>
+      {JSON.stringify(data)}
     </div>
   );
 };
