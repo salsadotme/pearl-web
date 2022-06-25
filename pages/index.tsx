@@ -1,17 +1,16 @@
 import type { NextPage } from "next";
 import type { FC } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import MessageForm from "../components/form";
+import Layout from "../components/layout";
 
 const Home: NextPage = () => {
   return (
-    <div data-theme="synthwave" className="navbar bg-base-100">
-      <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">Pearl</a>
+    <Layout>
+      <div className="mt-20">
+        <MessageForm />
       </div>
-      <div className="flex-none">
-        <ConnectButton />
-      </div>
-    </div>
+    </Layout>
   );
 };
 
