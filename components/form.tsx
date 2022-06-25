@@ -12,7 +12,7 @@ const Form = () => {
   const [titleText, setTitleText] = useState<string>();
   const [data, setData] = useState<SMTPData>();
   
-  
+
   const sendMail = async () => {
     try {
       let blob = { title: titleText, message: text };
@@ -32,7 +32,9 @@ const Form = () => {
       console.log("FUCK -> " + JSON.stringify(e));
     }
   };
-
+  
+  //contract code
+  //https://github.com/gracew/pearl-contracts/blob/f2827baadb7388ad98a9bc1111ddafb2e98af0b3/contracts/Pearl.sol#L70
   const hashMessage = () => {
 
   }
