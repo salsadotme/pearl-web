@@ -45,7 +45,6 @@ const Form = () => {
         message: text + " " + thisMessageHash + " " + messageSig,
       };
 
-      
       let data: SMTPData = await fetch("http://localhost:3000/api/sendSMTP", {
         method: "POST",
         headers: {
@@ -58,8 +57,7 @@ const Form = () => {
 
       setData(data);
 
-      console.log("Mail sent!"); 
-
+      console.log("Mail sent!");
     } catch (e) {
       console.log("FUCK -> " + JSON.stringify(e));
     }
@@ -122,17 +120,35 @@ const Form = () => {
 
   return (
     <div>
-      <div className="form-control w-full my-5 input-bordered ">
-        <label className="label">
-          <span className="label-text">Notification Title</span>
-        </label>
-        <input
-          type="text"
-          value={titleText}
-          onChange={(e) => setTitleText(e.target.value)}
-          placeholder="Hello Bears! Something exciting!"
-          className="input input-bordered w-full max-w-xs"
-        />
+      <h1 className="text-3xl text-bold">Create Anouncment</h1>
+      <div className="flex">
+        <div className=" w-full my-5 input-bordered flex-1 mr-5">
+          <label className="label">
+            <span className="label-text">Notification Title</span>
+          </label>
+          <input
+            type="text"
+            value={titleText}
+            onChange={(e) => setTitleText(e.target.value)}
+            placeholder="Hello Bears! Something exciting!"
+            className="input input-primary w-full"
+          />
+        </div>
+        <div className="flex-1 my-5 flex flex-col">
+          <div className="flex-1" />
+          <select className="select select-primary w-full  max-w-xs">
+            <option disabled selected>
+              Notification Category
+            </option>
+            <option>New NFT Drop</option>
+            <option>Mint Allowlist</option>
+            <option>Utility Announcements</option>
+            <option>Jobs</option>
+            <option>News Coverage</option>
+            <option>Security</option>
+            <option>General</option>
+          </select>
+        </div>
       </div>
       <label className="label">
         <span className="label-text">Message Content</span>
