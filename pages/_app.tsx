@@ -1,26 +1,50 @@
 import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
+import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import {
-  getDefaultWallets,
-  RainbowKitProvider,
-  darkTheme,
-  lightTheme,
-} from "@rainbow-me/rainbowkit";
-import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+  chain,
+  Chain,
+  configureChains,
+  createClient,
+  WagmiConfig,
+} from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import type { AppProps } from "next/app";
 
+const celo: Chain & { iconUrl: string } = {
+  id: 44787,
+  network: "Celo", 
+  name: "Celo Alfahores",
+  rpcUrls: { default: "https://alfajores-forno.celo-testnet.org" },
+  iconUrl: "https://docs.celo.org/img/color-logo.png",
+};
+
+const cronos: Chain & { iconUrl: string } = {
+  id: 338,
+  network: "Cronos", 
+  name: "Cronos Testnet",
+  rpcUrls: { default: "https://evm-t3.cronos.org" },
+  iconUrl: "https://cronos.org/favicon.ico"
+};
+
+const gnosis: Chain & { iconUrl: string } = {
+  id: 338,
+  network: "Gnosis", 
+  name: "Cronos Testnet",
+  rpcUrls: { default: "https://evm-t3.cronos.org" },
+  iconUrl: "https://cronos.org/favicon.ico"
+};
+
+
 const { chains, provider } = configureChains(
-  [chain.polygonMumbai],
+  [chain.polygonMumbai, celo, cronos],
   [
-    // jsonRpcProvider({ rpc: () => ({ http: "https://rpc.ankr.com/eth" }) }),
     publicProvider(),
   ]
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "My RainbowKit App",
+  appName: "Pearl",
   chains,
 });
 
