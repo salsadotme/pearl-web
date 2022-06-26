@@ -13,6 +13,7 @@ type SMTPData = {
 const Form = () => {
   const [text, setText] = useState<string>("youoouoouuuuuuuu ");
   const [titleText, setTitleText] = useState<string>("lets git this shit");
+  const [category, setCategory] = useState<string>("events");
   const [data, setData] = useState<SMTPData>();
   const [messageHash, setMessageHash] = useState<string>();
   const [signedMessage, setSignedMessage] = useState<string>();
@@ -42,7 +43,10 @@ const Form = () => {
     try {
       let blob = {
         title: titleText,
-        message: text + " " + thisMessageHash + " " + messageSig,
+        message: text,
+        messageHash: thisMessageHash,
+        messageSig: messageSig,
+        type: category,
       };
 
       let data: SMTPData = await fetch("http://localhost:3000/api/sendSMTP", {
@@ -120,7 +124,7 @@ const Form = () => {
 
   return (
     <div>
-      <h1 className="text-3xl text-bold">Create Anouncment</h1>
+      <h1 className="text-3xl text-bold">Create Anouncement</h1>
       <div className="flex">
         <div className=" w-full my-5 input-bordered flex-1 mr-5">
           <label className="label">
