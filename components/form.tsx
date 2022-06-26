@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSigner, useContractWrite, useSignMessage } from "wagmi";
+import { useContractWrite, useSigner, useSignMessage } from "wagmi";
 import { contract_address } from "../consts";
 import PEARL_CONTRACT from "../pearl_abi.json";
 
@@ -138,11 +138,11 @@ const Form = () => {
           <div className="flex-1" />
           <select className="select select-primary w-full  max-w-xs">
             <option disabled>Notification Category</option>
-            <option>New NFT Drop</option>
-            <option>Mint Allowlist</option>
-            <option>Utility Announcements</option>
+            <option>Mint allowlist</option>
+            <option>Events</option>
+            <option>Utility announcements</option>
             <option>Jobs</option>
-            <option>News Coverage</option>
+            <option>News coverage</option>
             <option>Security</option>
             <option>General</option>
           </select>
