@@ -1,6 +1,6 @@
+import { useAppContext } from "@/context/appcontext";
 import { useState } from "react";
 import { useContractWrite, useSigner, useSignMessage } from "wagmi";
-import { contract_address } from "../consts";
 import PEARL_CONTRACT from "../pearl_abi.json";
 
 type SMTPData = {
@@ -17,6 +17,7 @@ const Form = () => {
   const [data, setData] = useState<SMTPData>();
   const [messageHash, setMessageHash] = useState<string>();
   const [signedMessage, setSignedMessage] = useState<string>();
+  let { contract_address } = useAppContext(); 
 
   const { data: signer } = useSigner();
 

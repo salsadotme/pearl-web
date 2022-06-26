@@ -1,6 +1,6 @@
+import { useAppContext } from "@/context/appcontext";
 import { useState } from "react";
 import { useContractWrite, useSigner } from "wagmi";
-import { contract_address } from "../consts";
 import PEARL_CONTRACT from "../pearl_abi.json";
 
 type SMTPData = {
@@ -12,7 +12,7 @@ type SMTPData = {
 
 const YampForm = () => {
   const [server, setServer] = useState<string>("127.0.0.1");
-
+  let { contract_address } = useAppContext(); 
   const { data: signer } = useSigner();
 
   const { writeAsync } = useContractWrite(
