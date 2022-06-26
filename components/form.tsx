@@ -165,7 +165,7 @@ const Form = () => {
       <button onClick={doAllTheThings} className="btn btn-primary">
         Send
       </button>
-      {JSON.stringify(data)}
+      {data && <span className="text-3xl ml-5">🎉</span>}
     </div>
   );
 };
