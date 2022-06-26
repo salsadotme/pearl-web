@@ -137,9 +137,7 @@ const Form = () => {
         <div className="flex-1 my-5 flex flex-col">
           <div className="flex-1" />
           <select className="select select-primary w-full  max-w-xs">
-            <option disabled selected>
-              Notification Category
-            </option>
+            <option disabled>Notification Category</option>
             <option>New NFT Drop</option>
             <option>Mint Allowlist</option>
             <option>Utility Announcements</option>

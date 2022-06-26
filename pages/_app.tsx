@@ -35,10 +35,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider
         chains={chains}
-        theme={{
-          lightMode: lightTheme(),
-          darkMode: darkTheme(),
-        }}
+        // theme={{
+        //   lightMode: lightTheme(),
+        //   darkMode: darkTheme(),
+        // }}
         coolMode
       >
         <Component {...pageProps} />
