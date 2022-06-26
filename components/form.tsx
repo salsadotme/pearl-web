@@ -49,7 +49,7 @@ const Form = () => {
         type: category,
       };
 
-      let data: SMTPData = await fetch("http://localhost:3000/api/sendSMTP", {
+      let data: SMTPData = await fetch("/api/sendSMTP", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
