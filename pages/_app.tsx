@@ -29,16 +29,15 @@ const cronos: Chain & { iconUrl: string } = {
 };
 
 const gnosis: Chain & { iconUrl: string } = {
-  id: 338,
+  id: 77,
   network: "Gnosis",
-  name: "Cronos Testnet",
-  rpcUrls: { default: "https://evm-t3.cronos.org" },
-  iconUrl: "https://cronos.org/favicon.ico"
+  name: "xDai Testnet",
+  rpcUrls: { default: "https://sokol.poa.network" },
+  iconUrl: "https://s2-recruiting.cdn.greenhouse.io/external_greenhouse_job_boards/logos/400/344/300/resized/gnosis_logo_sans_darkblue.png?1566206217"
 };
 
-
 const { chains, provider } = configureChains(
-  [chain.polygonMumbai, celo, cronos],
+  [chain.polygonMumbai, celo, cronos, gnosis, chain.optimismKovan],
   [
     publicProvider(),
   ]
