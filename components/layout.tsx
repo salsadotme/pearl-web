@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Layout = ({ children }: { children: any }) => {
   return (
-    <div data-theme="cyberpunk">
+    <div data-theme="synthwave">
       <div className="navbar bg-white">
         <div className="flex-1">
           <Image
